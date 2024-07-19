@@ -25,11 +25,11 @@ variable "team" {
 variable "costcentre" {
   description = "Team or department responsible for managing the resource"
   type        = string
-  default = "my-team"
+  default = "my-costcentre"
 }
 
 variable "owner" {
   description = "Individual or team responsible for the resource"
   type        = string
-  default = "my-team"
+  default = "ceo"
 }

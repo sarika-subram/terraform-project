@@ -10,8 +10,9 @@ resource "aws_ecs_cluster" "main_cluster" {
 # Create the ECS task definition
 resource "aws_ecs_task_definition" "main_task" {
   family                   = "main-task"
+  execution_role_arn       = aws_iam_role.ecs_task_execution_role.arn
   container_definitions    = file("${path.module}/task-definitions/container-def.json")
-  requires_compatibilities = ["EC2"]
+  requires_compatibilities = ["FARGATE"]
   network_mode             = "awsvpc"
   cpu                      = 256
   memory                   = 512
@@ -23,7 +24,7 @@ resource "aws_ecs_service" "main_service" {
   cluster         = aws_ecs_cluster.main_cluster.id
   task_definition = aws_ecs_task_definition.main_task.arn
   desired_count   = 2
-  launch_type     = "EC2"
+  launch_type     = "FARGATE"
 
   network_configuration {
     subnets          = var.private_subnets
@@ -37,3 +38,4 @@ resource "aws_ecs_service" "main_service" {
     container_port   = 80
   }
 }
+

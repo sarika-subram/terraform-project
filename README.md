@@ -1,6 +1,6 @@
 # Terraform Infrastructure Deployment
 
-This repository contains Terraform scripts for deploying a highly available and scalable infrastructure on AWS. The infrastructure includes the following components:
+This repository contains Terraform scripts for deploying a highly available infrastructure on AWS. The infrastructure includes the following components:
 
 - Virtual Private Cloud (VPC) with public and private subnets across two Availability Zones
 - Application Load Balancer (ALB) deployed in the public subnets
@@ -42,6 +42,9 @@ To deploy to a specific environment, follow these steps:
 
 To switch between environments, use the `terraform workspace select` command and specify the desired environment name.
 
+# CI/CD
+A a GitHub Actions workflow file that defines a continuous integration and deployment (CI/CD) pipeline for Terraform configurations. It automates the process of initializing Terraform, planning the changes, and applying the configurations across different environments (dev, staging, and prod)
+
 ## Cost Estimation
 
 The cost of this deployment will vary based on the number of requests, the instance types used for the ECS cluster, and the amount of data transfer. Here's a rough estimate of the costs:
@@ -55,10 +58,11 @@ The cost of this deployment will vary based on the number of requests, the insta
 
 To optimize costs, you can consider the following strategies:
 
-- **Autoscaling**: Implement autoscaling for the ECS cluster to automatically scale the number of instances based on demand, ensuring that you're not running more instances than necessary.
-- **Reserved Instances**: If you have a consistent workload, you can purchase Reserved Instances for the ECS cluster, which can provide significant cost savings compared to On-Demand instances.
+- **Autoscaling**: Implement automatic scaling for the ECS cluster to automatically scale the desired count of tasks based on demand to reduce costs during periods of low utilization. 
+- **Savings Plans**: If you have a consistent workload, you can purchase Savings Plans or Reserved Instances for the ECS cluster, which can provide significant cost savings compared to On-Demand instances.
 - **CloudFront**: Use Amazon CloudFront as a content delivery network (CDN) for your static website hosted on S3. This can reduce data transfer costs and improve performance for users around the world.
-- **Monitoring and Alerting**: Implement monitoring and alerting to identify and address any cost-related issues promptly.
+- **Launch Type**: The use of EC2 gives an alternative to Fargate where the compute pricing is fixed based on the number of instance running within the cluster. Depending on the traffic, this may be more cost efficient  
+
 
 ## Handling Future Changes
 
@@ -70,8 +74,9 @@ As your application grows and requirements change, you may need to make modifica
 
 3. **Testing**: Implement a testing strategy for your Terraform scripts to ensure that changes don't introduce any issues or regressions. You can use tools like Terraform Cloud or GitHub Actions to automate testing and deployment.
 
-4. **Documentation**: Maintain up-to-date documentation for your Terraform scripts, including descriptions of each module, input variables, and output values. This will make it easier for others to understand and maintain the infrastructure.
 
-5. **Continuous Integration and Continuous Deployment (CI/CD)**: Set up a CI/CD pipeline to automatically test, validate, and deploy your Terraform scripts when changes are made. This ensures that your infrastructure is always up-to-date and reduces the risk of manual errors.
+# Additional considerations for the future
 
-By following these practices, you can ensure that your infrastructure remains maintainable, scalable, and cost-effective as your application evolves over time.
+1. Storing your Terraform state files in a remote backend
+2. Consider using an Amazon CloudFront distribution to serve the static website hosted on the Amazon S3 bucket to potentially decrease latency, cost and increase the security of your application
+3. Implement monitoring and alerting to identify and address any issues.
