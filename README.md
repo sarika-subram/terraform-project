@@ -43,7 +43,7 @@ To deploy to a specific environment, follow these steps:
 To switch between environments, use the `terraform workspace select` command and specify the desired environment name.
 
 # CI/CD
-A a GitHub Actions workflow file that defines a continuous integration and deployment (CI/CD) pipeline for Terraform configurations. It automates the process of initializing Terraform, planning the changes, and applying the configurations across different environments (dev, staging, and prod)
+A a GitHub Actions workflow file `./.github/workflows/terraform.yml` that defines a continuous integration and deployment (CI/CD) pipeline for Terraform configurations. It automates the process of initializing Terraform, planning the changes, and applying the configurations across different environments (dev, staging, and prod)
 
 ## Cost Estimation
 
