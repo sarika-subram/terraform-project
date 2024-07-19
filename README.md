@@ -77,6 +77,6 @@ As your application grows and requirements change, you may need to make modifica
 
 # Additional considerations for the future
 
-1. Storing your Terraform state files in a remote backend
+1. Store your Terraform state files in a remote backend
 2. Consider using an Amazon CloudFront distribution to serve the static website hosted on the Amazon S3 bucket to potentially decrease latency, cost and increase the security of your application
 3. Implement monitoring and alerting to identify and address any issues.
