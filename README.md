@@ -7,6 +7,12 @@ This repository contains Terraform scripts for deploying a highly available infr
 - Elastic Container Service (ECS) cluster running on EC2 instances in the private subnets
 - S3 bucket configured for static website hosting
 
+## Prerequisites
+This solution will not be deployable until adiitional steps are taken:
+1. The ALB endpoint should be updated within the index.html. For simplicity's sake, this solution deploys all the resources including uploading the index.html file to the S3 bucket in one go. However, ideally there should be a separate pipeline that updates the ALB endpoint prior to upload
+2. A separate S3 bucket and DynamoDB table must be created to store the terraform state
+3. Ensure that the `./.github/workflows/terraform.yml` has access to AWS Access Keys that have sufficient permissions to deploy the nexessary resources  
+
 ## Security Measures
 
 The following security measures have been implemented:
@@ -75,7 +81,7 @@ As your application grows and requirements change, you may need to make modifica
 3. **Testing**: Implement a testing strategy for your Terraform scripts to ensure that changes don't introduce any issues or regressions. You can use tools like Terraform Cloud or GitHub Actions to automate testing and deployment.
 
 
-# Additional considerations for the future
+# Additional considerations
 
 1. Store your Terraform state files in a remote backend
 2. Consider using an Amazon CloudFront distribution to serve the static website hosted on the Amazon S3 bucket to potentially decrease latency, cost and increase the security of your application
